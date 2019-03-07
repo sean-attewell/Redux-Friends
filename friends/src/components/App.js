@@ -11,29 +11,29 @@ export default function App() {
     <Router>
       <div>
         <nav>
-          <Link to='/'>Home</Link>
           <Link to='/friends'>Friends</Link>
-          <Link to='/login'>Login</Link>
+          <Link to='/'>Login</Link>
         </nav>
 
         <Route
           path='/friends'
           render={() => (
-            localStorage.getItem('userToken')
+            localStorage.getItem('token')
               ? (
                 <Spinner>
-                  <Quotes />
-                  <QuoteForm />
+                  <Friends />
+                  <FriendForm />
                 </Spinner>
               )
               : (
-                <Redirect to='/login' />
+                <Redirect to='/' />
               )
           )}
         />
 
         <Route
-          path='/login'
+          exact
+          path='/'
           render={() => (
             <Login />
           )}

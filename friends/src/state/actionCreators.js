@@ -1,4 +1,3 @@
-import uuid from 'uuid';
 import * as types from './actionTypes';
 import axios from '../axios/axios';
 
@@ -10,6 +9,9 @@ export const login = user => dispatch => {
         .then(token => {
             localStorage.setItem('token', token.data.payload);
             dispatch(spinnerOff());
+        })
+        .catch(error => {
+            dispatch(throwError(error.message))
         })
 };
 
@@ -26,6 +28,8 @@ export const addFriendAsync = friend => dispatch => {
     dispatch(spinnerOn());
     axios().post(`http://localhost:5000/api/friends`, friend)
         .then(res => {
+            console.log(friend);
+            console.log(res.data);
             dispatch({ type: types.ADD_FRIEND, payload: res.data });
             dispatch(spinnerOff());
         });
@@ -40,5 +44,12 @@ export function spinnerOn() {
 export function spinnerOff() {
     return {
         type: types.SPINNER_OFF,
+    };
+}
+
+export function throwError(error) {
+    return {
+        type: types.THROW_ERROR,
+        payload: error,
     };
 }
