@@ -2,6 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { addFriendAsync } from '../state/actionCreators';
+import uuid from 'uuid';
 
 
 export class FriendForm extends React.Component {
@@ -15,6 +16,7 @@ export class FriendForm extends React.Component {
         const emailInput = this.emailRef.current;
 
         const newFriend = {
+            // id: uuid(),
             name: nameInput.value,
             age: ageInput.value,
             email: emailInput.value
